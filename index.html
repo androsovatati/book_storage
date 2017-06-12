@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="AppController as ctrl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Book Storage</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./static/styles/main.css">
+    <script src="./static/scripts/main.js"></script>
+</head>
+<body>
+
+<div class="header">
+    <h1>Книжная полка</h1>
+</div>
+
+<div class="book-add" ng-click="ctrl.addBook()">
+    <div class="book-add__btn">
+        <i class="fa fa-lg fa-plus"></i>
+        Добавить книгу
+    </div>
+</div>
+
+<div class="book-list">
+    <div class="book-list__item" ng-repeat="book in ctrl.books">
+        <div class="book-list__item-img">
+            <img src="{{book.img}}">
+        </div>
+        <div class="book-list__item-content">
+            <div class="book-list__item-title">{{book.title}}</div>
+            <div class="book-list__item-author">{{book.author}}</div>
+            <div class="book-list__item-year">{{book.year}}</div>
+        </div>
+        <div class="book-list__item-btn">
+            <div class="book-list__item-edit" ng-click="ctrl.editBook(book, $index)">
+                <i class="fa fa-pencil"></i>
+                Редактировать
+            </div>
+            <div class="book-list__item-delete" ng-click="ctrl.deleteBook(book, $index)">
+                <i class="fa fa-trash-o"></i>
+                Удалить
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" ng-if="ctrl.showModal">
+    <div class="dialog">
+        <div class="dialog__header">
+            {{ctrl.modalType === 'add' ? 'Добавление' : 'Редактирование'}} книги
+        </div>
+        <div class="dialog__body">
+            <div class="dialog__input-block">
+                <label for="book-title">Название книги*</label>
+                <input type="text" id="book-title" ng-model="ctrl.currentBook.title">
+            </div>
+            <div class="dialog__input-block">
+                <label for="book-author">Автор*</label>
+                <input type="text" id="book-author" ng-model="ctrl.currentBook.author">
+            </div>
+            <div class="dialog__input-block">
+                <label for="book-year">Год издания*</label>
+                <input type="text" id="book-year" ng-model="ctrl.currentBook.year">
+            </div>
+            <div class="dialog__input-block">
+                <label for="book-img">Изображение</label>
+                <input type="text" id="book-img" ng-model="ctrl.currentBook.img">
+            </div>
+
+        </div>
+        <div class="dialog__alert" ng-if="ctrl.error">
+            <p>{{ctrl.errorMessage}}</p></div>
+        <div class="dialog__footer">
+            <div class="dialog__cancel-btn" ng-click="ctrl.onCancel()">Отменить</div>
+            <div class="dialog__save-btn" ng-click="ctrl.onSave()">Сохранить</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
