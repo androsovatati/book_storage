@@ -21,8 +21,12 @@
     </div>
 </div>
 
+<div class="search">
+    <input type="text" placeholder="Поиск по книге..." ng-model="ctrl.query">
+</div>
+
 <div class="book-list">
-    <div class="book-list__item" ng-repeat="book in ctrl.books">
+    <div class="book-list__item" ng-repeat="book in ctrl.books | filter: ctrl.query">
         <div class="book-list__item-img">
             <img src="{{book.img}}">
         </div>
